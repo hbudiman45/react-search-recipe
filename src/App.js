@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import Constants from "./config/Constants";
-import Recipe from "./components/RecipeCard";
-import { Row, Col } from "antd";
+import SearchForm from "./components/SearchForm";
+import Spinner from "./components/Spinner";
+import Result from "./components/Result";
 
 const App = props => {
   const [recipes, setRecipes] = useState([]);
@@ -26,37 +27,28 @@ const App = props => {
       }
     };
     getRecipes();
-    console.log(props);
   }, [query]);
 
   const inputChange = e => {
     setSearch(e.target.value);
-    const { pathname } = props.location;
-    props.history.push(pathname + "?query=" + e.target.value);
   };
   const submitSearch = e => {
     e.preventDefault();
     setQuery(search);
     setSearch("");
   };
-  const renderRecipes = () =>
-    recipes.map(rec => (
-      <Col span={8} key={rec.recipe.label} style={{ margin: "10px 0" }}>
-        <Recipe recipe={rec.recipe} />
-      </Col>
-    ));
 
   return (
-    <div className="App">
-      <h1>React Recipe</h1>
-      <form onSubmit={submitSearch}>
-        <input type="text" value={search} onChange={inputChange} />
-        <button type="submit">Search</button>
-      </form>
-      {isLoading && <h1>Loading...</h1>}
-      <div className="recipes">
-        <Row>{renderRecipes()}</Row>
-      </div>
+    <div className="container">
+      <h1>Search For Recipe</h1>
+      <SearchForm
+        submitSearch={submitSearch}
+        search={search}
+        inputChange={inputChange}
+      />
+
+      {isLoading && <Spinner />}
+      <Result recipes={recipes} />
     </div>
   );
 };

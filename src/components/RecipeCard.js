@@ -1,19 +1,25 @@
 import React from "react";
-import { Card, Avatar, Icon } from "antd";
-import { Link } from "react-router-dom";
 
 const Recipe = props => {
   const { recipe } = props;
   return (
-    <Link to={"/recipes/"}>
-      <Card
-        style={{ width: 400, boxShadow: "rgba(0, 0, 0, 0.16)" }}
-        cover={<img alt="example" src={recipe.image} />}
-      >
-        <Card.Meta title={recipe.label} />
-        {console.log(recipe)}
-      </Card>
-    </Link>
+    <div className="card">
+      <img src={recipe.image} className="card-img-top" alt={recipe.label} />
+      <div className="card-body">
+        <h5 className="card-title">{recipe.label}</h5>
+        <ul className="card-text">
+          {recipe.ingredientLines.map(ing => (
+            <li>{ing}</li>
+          ))}
+        </ul>
+        <p class="card-text">
+          <small class="text-muted">
+            {Math.round(recipe.calories)} calories
+          </small>
+        </p>
+      </div>
+      {console.log(recipe)}
+    </div>
   );
 };
 
