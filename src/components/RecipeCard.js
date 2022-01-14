@@ -1,25 +1,25 @@
 import React from "react";
+import { Card, Tooltip } from "antd";
 
-const Recipe = props => {
-  const { recipe } = props;
+const Recipe = (props) => {
+  const { recipe, onClickCard } = props;
+  // console.log(recipe);
+
   return (
-    <div className="card">
-      <img src={recipe.image} className="card-img-top" alt={recipe.label} />
-      <div className="card-body">
-        <h5 className="card-title">{recipe.label}</h5>
-        <ul className="card-text">
-          {recipe.ingredientLines.map(ing => (
-            <li>{ing}</li>
-          ))}
-        </ul>
-        <p class="card-text">
-          <small class="text-muted">
-            {Math.round(recipe.calories)} calories
-          </small>
-        </p>
-      </div>
-      {console.log(recipe)}
-    </div>
+    <Tooltip title={recipe.label} placement="bottom">
+      <Card
+        hoverable
+        cover={<img alt={recipe.label} src={recipe.image} />}
+        onClick={() => {
+          onClickCard(recipe);
+        }}
+      >
+        <Card.Meta
+          title={recipe.label}
+          description={`${Math.round(recipe.calories)} calories`}
+        />
+      </Card>
+    </Tooltip>
   );
 };
 

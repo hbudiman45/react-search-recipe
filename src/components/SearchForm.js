@@ -1,26 +1,22 @@
 import React from "react";
+import { Input, Row, Col } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 
-const SearchForm = props => {
-  const { submitSearch, search, inputChange } = props;
+const SearchForm = (props) => {
+  const { search, inputChange } = props;
   return (
-    <form onSubmit={submitSearch} className="my-3">
-      <div className="row">
-        <div className="col">
-          <input
-            className="form-control"
-            type="text"
-            value={search}
-            onChange={inputChange}
-            placeholder="Search for delicious recipes here.."
-          />
-        </div>
-        <div className="col">
-          <button type="submit" className=" btn btn-primary">
-            Search
-          </button>
-        </div>
-      </div>
-    </form>
+    <Row justify="center" className="search-input">
+      <Col xs={20} md={12}>
+        <Input
+          value={search}
+          placeholder="Search for delicious recipes here.."
+          onChange={inputChange}
+          size="large"
+          suffix={<SearchOutlined />}
+          // loading
+        />
+      </Col>
+    </Row>
   );
 };
 
